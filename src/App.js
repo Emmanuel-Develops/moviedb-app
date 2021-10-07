@@ -1,5 +1,19 @@
 import React from 'react';
 
-const App = () => <div>Start here!</div>
+import { GlobalStyle } from './GlobalStyle';
+
+//Components
+import Header from './components/Header';
+import Home from './components/Home';
+
+const App = () => {
+    return (
+        <div>
+            <Header/>
+            <Home />
+            <GlobalStyle />
+        </div>
+    )
+}
 
 export default App;
