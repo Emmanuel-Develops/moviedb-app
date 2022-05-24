@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import API from '../API'
+import { isPersistedState } from '../helpers'
 
 const initialState = {
     page: 1,
@@ -13,7 +14,8 @@ export const useHomeFetch = () => {
     const [state, setState] = useState(initialState)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
-    const [page, setPage] = useState(false)
+    const [loadNextPage, setLoadNextPage] = useState(false)
+
 
     const fetchMovies = async (page, searchTerm = "") => {
         try {
@@ -35,15 +37,28 @@ export const useHomeFetch = () => {
 
     // It'll run only on the initial render of this Home component and searchTerm
     useEffect(() => {
+        if (!searchTerm) {
+            const sessionState = isPersistedState('homeState')
+            if (sessionState) {
+                setState(sessionState)
+                return
+            }
+        }
         setState(initialState)
         fetchMovies(1, searchTerm)
     }, [searchTerm])
 
     useEffect(() => {
-        if (!page) return
+        if (!loadNextPage) return
         fetchMovies(state.page+1, searchTerm)
-        setPage(false)
-    }, [page, searchTerm, state.page])
+        setLoadNextPage(false)
+    }, [loadNextPage, searchTerm, state.page])
 
-    return { state, loading, error, searchTerm, setSearchTerm, page, setPage }
+    useEffect(() => {
+       if (!searchTerm) {
+           sessionStorage.setItem('homeState', JSON.stringify(state))
+       } 
+    }, [searchTerm, state])
+
+    return { state, loading, error, searchTerm, setSearchTerm, loadNextPage, setLoadNextPage }
 }

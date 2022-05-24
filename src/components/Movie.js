@@ -7,6 +7,8 @@ import Grid from './Grid'
 import Spinner from './Spinner'
 import BreadCrumb from './BreadCrumb'
 import MovieInfo from './MovieInfo'
+import MovieInfoBar from './MovieInfoBar'
+import Actor from './Actor'
 // Hook
 import { useMovieFetch } from '../hooks/useMovieFetch'
 // Image
@@ -15,17 +17,31 @@ import NoImage from '../images/no_image.jpg'
 const Movie = () => {
     const { movieId } = useParams()
 
-    const { state: movie, loading, error } = useMovieFetch(movieId)
+    const { state, loading, error } = useMovieFetch(movieId)
     // from above state is renamed to movie while destructuring
-
-    console.log(movie)
 
     if (loading) return <Spinner />
 
     return (
         <>
-            <BreadCrumb movieTitle={movie.original_title} />
-            <MovieInfo movie={movie} />  
+            <BreadCrumb movieTitle={state.original_title} />
+            <MovieInfo movie={state} />  
+            <MovieInfoBar time = {state.runtime} budget={state.budget} revenue = {state.revenue} />
+            {/* <Actor actors={movie.actors}/> */}
+            {state.actors && <Grid header='Actors'>
+                {state?.actors?.map(actor => (
+                    <Actor 
+                        key={actor.credit_id}
+                        name={actor.name}
+                        character={actor.character}
+                        imageUrl={
+                            actor.profile_path 
+                                ? `${IMAGE_BASE_URL}${POSTER_SIZE}${actor.profile_path}`
+                                : NoImage
+                        }
+                    />
+                ))}
+            </Grid>}
         </>
     )
 }

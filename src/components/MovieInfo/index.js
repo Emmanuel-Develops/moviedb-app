@@ -14,9 +14,8 @@ const MovieInfo = ({ movie }) => {
         <Wrapper backdrop={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${movie.backdrop_path}`}>
             <Content>
                 <Thumb 
-                image = {movie.poster_path ? `${IMAGE_BASE_URL}${POSTER_SIZE}${movie.poster_path}` : NoImage}
-                clickable = {false}
-                movieId = {movie.id}
+                    image = {movie.poster_path ? `${IMAGE_BASE_URL}${POSTER_SIZE}${movie.poster_path}` : NoImage}
+                    clickable = {false}
                 />
                 <Text>
                     <h1>{movie.title}</h1>
@@ -28,9 +27,9 @@ const MovieInfo = ({ movie }) => {
                             <div className="score">{movie.vote_average}</div>
                         </div>
                         <div className="director">
-                            <h3>DIRECTOR{movie.directors.length > 1 ? 'S' : ''}</h3>
-                            {movie.directors.map((director) => {
-                                return <p>{director.name}</p>
+                            <h3>DIRECTOR{(movie?.directors && movie?.directors.length > 1 ) ? 'S' : ''}</h3>
+                            {movie?.directors?.map((director) => {
+                                return <p key={director.id}>{director.name}</p>
                             })}
 
                         </div>
