@@ -1,7 +1,7 @@
 import React from "react";
-import { calcTime, convertMoney, ConvertMoney } from '../../helpers'
+import { calcTime, convertMoney} from '../../helpers'
 
-import { Wrapper, Content, Column } from "./MoveInfoBar.styles";
+import { Wrapper, Content } from "./MoveInfoBar.styles";
 
 const MovieInfoBar = ({ time, budget, revenue }) => {
     return (
