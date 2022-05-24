@@ -22,7 +22,7 @@ export const useHomeFetch = () => {
             setError(false);
             setLoading(true);
             const movies = await API.fetchMovies(page, searchTerm);
-            // console.log(movies)
+            // 
 
             setState(prev => ({
                 ...movies,
