@@ -7,8 +7,6 @@ export const Wrapper = styled.div`
     };
     background-size: cover;
     background-position: center;
-    /* width: 100%; */
-    /* height: 100vh; */
     padding: 40px 20px;
     animation: animateMovieInfo 1s;
 
@@ -24,7 +22,7 @@ export const Wrapper = styled.div`
 
 export const Content = styled.div`
     display: flex;
-    /* width: 100%; */
+    width: 100%;
     max-width: var(--maxWidth);
     margin: 0 auto;
     background: rgba(0, 0, 0, 0.7);
