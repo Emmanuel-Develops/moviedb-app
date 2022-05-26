@@ -1,32 +1,42 @@
 import { useState, useEffect } from "react";
-import API from "../API";
+import API, {Movie, Cast, Crew, Credits} from "../API";
 import { isPersistedState } from "../helpers";
 
-export const useMovieFetch = movieId => {
-    const [state, setState] = useState({})
+// Types
+// export type MovieState = Movie & { actors: Cast[], directors: Crew[]}
+
+export type MovieState = Movie & {
+    actors: Cast[];
+    directors: Crew[];
+}
+
+export const useMovieFetch = (movieId: number) => {
+    const [state, setState] = useState<MovieState>({} as MovieState)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
 
-    const fetchData = async (movieId) => {
+    const fetchData = async (movieId: number) => {
         try {
             setLoading(true)
             setError(false)
 
-            const movie = await API.fetchMovie(movieId)
-            const credit = await API.fetchCredits(movieId)
+            const movie: Movie = await API.fetchMovie(movieId)
+            const credit: Credits | any = await API.fetchCredits(movieId)
+
+            const actors: Cast[] = credit.cast
 
             // Get directors only
-            const directors = credit.crew.filter(
-                member => member.job === 'Director'
+            const directors: Crew[] = credit.crew.filter(
+                (member: Crew) => (member.job === 'Director')
             )
         
             setState({
                 ...movie,
-                actors: credit.cast,
+                actors,
                 directors
             })
             
-            sessionStorage.setItem(movieId, JSON.stringify({
+            sessionStorage.setItem(movieId.toString(), JSON.stringify({
                 ...movie,
                 actors: credit.cast,
                 directors
@@ -41,7 +51,7 @@ export const useMovieFetch = movieId => {
 
     useEffect(() => {
         
-        const sessionData = isPersistedState(movieId)
+        const sessionData = isPersistedState(movieId.toString())
 
         if (sessionData) {
             setState(sessionData)

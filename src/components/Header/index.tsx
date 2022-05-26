@@ -6,7 +6,7 @@ import { Wrapper, Content, LogoImg, TMDBLogoImg } from "./Header.styles";
 import RMDBLogo from '../../images/react-movie-logo.svg';
 import TMDBLogo from '../../images/tmdb_logo.svg';
 
-const Header = () => (
+const Header: React.FC = () => (
         <Wrapper>
             <Content>
                 <Link to='/'>

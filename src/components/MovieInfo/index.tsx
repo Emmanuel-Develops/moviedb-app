@@ -8,7 +8,14 @@ import NoImage from '../../images/no_image.jpg'
 // Components
 import Thumb from '../Thumb'
 
-const MovieInfo = ({ movie }) => {
+// Types
+import { MovieState} from 'hooks/useMovieFetch'
+
+type Props = {
+    movie: MovieState;
+}
+
+const MovieInfo: React.FC<Props> = ({ movie }) => {
     
     return (
         <Wrapper backdrop={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${movie.backdrop_path}`}>
@@ -29,7 +36,7 @@ const MovieInfo = ({ movie }) => {
                         <div className="director">
                             <h3>DIRECTOR{(movie?.directors && movie?.directors.length > 1 ) ? 'S' : ''}</h3>
                             {movie?.directors?.map((director) => {
-                                return <p key={director.id}>{director.name}</p>
+                                return <p key={director.credit_id}>{director.name}</p>
                             })}
 
                         </div>

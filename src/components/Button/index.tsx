@@ -2,7 +2,12 @@ import React from "react";
 
 import { Wrapper } from "./Button.styles";
 
-const Button = ({ text, callback }) => {
+type Props = {
+    text: string;
+    callback: (value: boolean) => void;
+}
+
+const Button: React.FC<Props> = ({ text, callback }) => {
     return (
         <Wrapper type="button" onClick={() => callback(true)}>
             {text}

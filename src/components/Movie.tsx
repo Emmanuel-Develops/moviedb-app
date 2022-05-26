@@ -14,10 +14,10 @@ import { useMovieFetch } from '../hooks/useMovieFetch'
 // Image
 import NoImage from '../images/no_image.jpg'
 
-const Movie = () => {
+const Movie: React.FC = () => {
     const { movieId } = useParams()
 
-    const { state, loading, error } = useMovieFetch(movieId)
+    const { state, loading, error } = useMovieFetch(Number(movieId))
     // from above state is renamed to movie while destructuring
 
     if (loading) return <Spinner />

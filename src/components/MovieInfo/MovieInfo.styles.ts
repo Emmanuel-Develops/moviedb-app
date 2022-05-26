@@ -1,6 +1,11 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
+// Types
+type Props = {
+    backdrop: string;
+}
+
+export const Wrapper = styled.div<Props>`
     background: ${({ backdrop }) => 
         backdrop ? `url(${ backdrop })` : 'var(--darkGrey)'
     };

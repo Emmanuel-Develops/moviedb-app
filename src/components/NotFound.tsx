@@ -1,6 +1,6 @@
 import React from 'react'
 
-const NotFound = () => (
+const NotFound: React.FC = () => (
     <div>Error ___ Not Found</div>
 )
 

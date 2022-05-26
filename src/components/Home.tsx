@@ -12,12 +12,12 @@ import SearchBar from "./SearchBar";
 import Button from "./Button";
 
 // Hook
-import { useHomeFetch } from "../hooks/useHomeFetch";
+import { useHomeFetch } from "hooks/useHomeFetch";
 
 // Image
 import NoImage from '../images/no_image.jpg'
 
-const Home = () => {
+const Home: React.FC = () => {
 
     const { state, loading, error, searchTerm, setSearchTerm, setLoadNextPage } = useHomeFetch()
 

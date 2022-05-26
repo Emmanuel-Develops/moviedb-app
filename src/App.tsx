@@ -11,7 +11,7 @@ import Movie from './components/Movie';
 import NotFound from './components/NotFound';
 
 
-const App = () => (
+const App: React.FC = () => (
     <Router>
         <Header/>
         <Routes>
