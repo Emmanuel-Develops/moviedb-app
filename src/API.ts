@@ -100,17 +100,17 @@ const apiSettings = {
       return sessionId;
     }
   },
-  rateMovie: async (sessionId: number, movieId: number, value: number) => {
+  rateMovie: async (sessionId: string, movieId: number, value: number) => {
     const endpoint = `${API_URL}movie/${movieId}/rating?api_key=${API_KEY}&session_id=${sessionId}`;
 
-    const rating = await (
-      await fetch(endpoint, {
-        ...defaultConfig,
-        body: JSON.stringify({ value })
-      })
-    ).json();
+    const response = await fetch(endpoint, {
+      ...defaultConfig,
+      body: JSON.stringify({ value })
+    }) 
 
-    return rating;
+    const rating = await (response).json();
+
+    return {rating, response};
   }
 };
 

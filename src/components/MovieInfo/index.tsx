@@ -1,21 +1,45 @@
-import React from 'react'
+import React, {useContext} from 'react'
 
 import { Wrapper, Content, Text } from './MovieInfo.styles'
 
 import { IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from '../../config'
 
+import API from 'API'
+
 import NoImage from '../../images/no_image.jpg'
 // Components
 import Thumb from '../Thumb'
+import Rate from 'components/Rate'
 
 // Types
 import { MovieState} from 'hooks/useMovieFetch'
+// Context
+import {Context} from "context"
+import { useNavigate } from 'react-router-dom'
 
 type Props = {
     movie: MovieState;
 }
 
 const MovieInfo: React.FC<Props> = ({ movie }) => {
+
+    const {user} = useContext(Context)
+    const navigate = useNavigate()
+
+    const handleRating = async(value: number) => {
+
+        try {
+            const data = await API.rateMovie(user.sessionId, movie.id, value);
+            if (data.response.status === 401) {
+                navigate('../../login', {replace: true});
+                return
+            }
+            alert('Rating Successful')
+
+        } catch (error) {
+            console.log(error)
+        }
+    } 
     
     return (
         <Wrapper backdrop={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${movie.backdrop_path}`}>
@@ -41,6 +65,7 @@ const MovieInfo: React.FC<Props> = ({ movie }) => {
 
                         </div>
                     </div>
+                    <Rate handleRating={handleRating} />
                 </Text>
             </Content>
         </Wrapper>

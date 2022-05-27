@@ -51,7 +51,7 @@ const Home: React.FC = () => {
             </Grid>
             {loading && <Spinner />}
             {state.page < state.total_pages && !loading && (
-                <Button text='Load More' callback={setLoadNextPage} />
+                <Button text='Load More' callback={() => setLoadNextPage(true)} />
             )}
         </>
     )
