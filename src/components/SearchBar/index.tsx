@@ -8,7 +8,7 @@ type Props = {
     setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const SearchBar: React.FC<Props> = ({ setSearchTerm }) => {
+const SearchBar = ({ setSearchTerm }: Props) => {
     const [state, setState] = useState("")
     // the useRef set to true means it's value is set to true initially when the component mounts
     // i.e (first run). We don't want the useEffect to run on initial component mount so we return nothing if true and set initial to false
